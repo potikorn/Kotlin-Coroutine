@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Kotlin Coroutine</string>
+    <string name="action_go_to_network_sample">Go to network sample</string>
+    <string name="action_cancel_coroutine">Cancel Coroutine</string>
+</resources>
