@@ -20,6 +20,7 @@
         </activity>
         <activity android:name=".DownloadBlockingActivity" />
         <activity android:name=".CancelCoroutineActivity" />
+        <activity android:name=".AsyncAwaitActivity" />
     </application>
 
 </manifest>
