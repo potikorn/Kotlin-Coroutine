@@ -1,13 +1,12 @@
 package com.example.potikorn.kotlincoroutine
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.delay
-import kotlinx.coroutines.experimental.launch
-import java.util.concurrent.TimeUnit
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,8 +14,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         tvHelloWorld.setOnClickListener {
-            launch(UI) {
-                setTextAfterDelay(2, "Hello from a coroutine!")
+            GlobalScope.launch {
+                setTextAfterDelay(2000, "Hello from a coroutine!")
             }
         }
         btnDownloadBlocking.setOnClickListener {
@@ -28,7 +27,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private suspend fun setTextAfterDelay(seconds: Long, text: String) {
-        delay(seconds, TimeUnit.SECONDS)
+        delay(seconds)
         tvHelloWorld.text = text
     }
 }
