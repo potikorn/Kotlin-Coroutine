@@ -1,5 +1,6 @@
 package com.example.potikorn.kotlincoroutine
 
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -17,10 +18,17 @@ class MenuListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 R.layout.menu_item,
                 parent,
                 false
-            )
+            ),
+            viewType % 2 == 0
         )
 
     override fun getItemCount(): Int = items.size
+
+    override fun getItemViewType(position: Int): Int =
+        when (position % 2 == 0) {
+            true -> 2
+            else -> 1
+        }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         (holder as? MenuListViewHolder)?.onBindData(items[position], actionCallback)
@@ -36,7 +44,8 @@ class MenuListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         notifyDataSetChanged()
     }
 
-    inner class MenuListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class MenuListViewHolder(itemView: View, private val isEven: Boolean) :
+        RecyclerView.ViewHolder(itemView) {
         fun onBindData(
             string: String,
             actionListener: ActionClickListener<String>?
@@ -44,7 +53,16 @@ class MenuListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             itemView.apply {
                 setOnClickListener { actionListener?.onClick(string, adapterPosition) }
                 tvMenu.text = string
+                setStyleForBackground(isEven)
             }
+        }
+
+        private fun setStyleForBackground(isOdd: Boolean) {
+            val backgroundColor: Int = when (isOdd) {
+                true -> android.R.color.darker_gray
+                false -> android.R.color.white
+            }
+            itemView.background = ContextCompat.getDrawable(itemView.context, backgroundColor)
         }
     }
 

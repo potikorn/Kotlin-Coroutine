@@ -3,4 +3,5 @@
     <string name="action_go_to_network_sample">Go to network sample</string>
     <string name="action_cancel_coroutine">Cancel Coroutine</string>
     <string name="title_async_await">Async Await</string>
+    <string name="title_retrofit_example">With Retrofit</string>
 </resources>

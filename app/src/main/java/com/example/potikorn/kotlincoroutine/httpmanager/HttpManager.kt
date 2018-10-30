@@ -1,4 +1,4 @@
-package com.example.potikorn.kotlincoroutine
+package com.example.potikorn.kotlincoroutine.httpmanager
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -7,7 +7,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 object HttpManager {
 
-    fun getRetrofitInstance() =
+    fun getRetrofitInstance(): Retrofit =
         Retrofit.Builder()
             .baseUrl("https://randomuser.me/api/")
             .addConverterFactory(MoshiConverterFactory.create())

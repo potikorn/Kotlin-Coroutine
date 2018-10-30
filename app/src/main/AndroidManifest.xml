@@ -21,6 +21,7 @@
         <activity android:name=".DownloadBlockingActivity" />
         <activity android:name=".CancelCoroutineActivity" />
         <activity android:name=".AsyncAwaitActivity" />
+        <activity android:name=".RetrofitActivity" />
     </application>
 
 </manifest>

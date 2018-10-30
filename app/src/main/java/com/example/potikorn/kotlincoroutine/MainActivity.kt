@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
             0 -> startActivity(Intent(this@MainActivity, CancelCoroutineActivity::class.java))
             1 -> startActivity(Intent(this@MainActivity, DownloadBlockingActivity::class.java))
             2 -> startActivity(Intent(this@MainActivity, AsyncAwaitActivity::class.java))
+            3 -> startActivity(Intent(this@MainActivity, RetrofitActivity::class.java))
         }
     }
 
@@ -47,6 +48,7 @@ class MainActivity : AppCompatActivity() {
             add(getString(R.string.action_cancel_coroutine))
             add(getString(R.string.action_go_to_network_sample))
             add(getString(R.string.title_async_await))
+            add(getString(R.string.title_retrofit_example))
         }
     }
 }
