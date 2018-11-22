@@ -1,15 +1,16 @@
 package com.example.potikorn.kotlincoroutine.service
 
 import com.example.potikorn.kotlincoroutine.model.RandomUserModel
-import retrofit2.Call
+import kotlinx.coroutines.Deferred
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface RandomUserApi {
 
     @GET(".")
-    fun getRandomUser(): Call<RandomUserModel>
+    fun getRandomUser(): Deferred<Response<RandomUserModel>>
 
     @GET(".")
-    fun getRandomUserByCount(@Query("results") count: Int? = 5): Call<RandomUserModel>
+    fun getRandomUserByCount(@Query("results") count: Int? = 5): Deferred<Response<RandomUserModel>>
 }

@@ -22,6 +22,7 @@
         <activity android:name=".CancelCoroutineActivity" />
         <activity android:name=".AsyncAwaitActivity" />
         <activity android:name=".RetrofitActivity" />
+        <activity android:name=".WithViewModelActivity" />
     </application>
 
 </manifest>

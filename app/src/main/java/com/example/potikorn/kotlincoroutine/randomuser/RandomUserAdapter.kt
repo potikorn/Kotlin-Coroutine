@@ -40,7 +40,7 @@ class RandomUserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         @SuppressLint("SetTextI18n")
         fun onBindData(randomUserResult: RandomUserResult) {
             itemView.apply {
-                tvName.text = "${randomUserResult.name?.title}" +
+                tvName.text = "${randomUserResult.name?.title} " +
                     "${randomUserResult.name?.first} " +
                     "${randomUserResult.name?.last}"
             }

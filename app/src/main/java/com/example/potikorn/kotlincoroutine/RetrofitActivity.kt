@@ -1,6 +1,5 @@
 package com.example.potikorn.kotlincoroutine
 
-import android.opengl.Visibility
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -11,9 +10,11 @@ import com.example.potikorn.kotlincoroutine.model.RandomUserModel
 import com.example.potikorn.kotlincoroutine.randomuser.RandomUserAdapter
 import com.example.potikorn.kotlincoroutine.service.RandomUserApi
 import kotlinx.android.synthetic.main.activity_retrofit.*
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Response
@@ -34,12 +35,14 @@ class RetrofitActivity : AppCompatActivity() {
         val retrofit = HttpManager.getRetrofitInstance()
         val service = retrofit.create(RandomUserApi::class.java)
 
-        GlobalScope.launch(Dispatchers.Main) {
+        GlobalScope.launch(Main) {
             pbLoading.visibility = View.VISIBLE
-            val task1 =
-                withContext(Dispatchers.IO) { async { service.getRandomUserByCount(4).execute() } }
-            val task2 = withContext(Dispatchers.IO) { async { service.getRandomUser().execute() } }
-            checkResult(task1.await(), task2.await())
+            coroutineScope {
+                val task1 = withContext(IO) { service.getRandomUserByCount(4).await() }
+                val task2 = withContext(IO) { service.getRandomUser().await() }
+//                awaitAll(service.getRandomUser(), service.getRandomUser())
+                checkResult(task1, task2)
+            }
         }
     }
 
@@ -52,7 +55,8 @@ class RetrofitActivity : AppCompatActivity() {
             task1.isSuccessful and task2.isSuccessful -> {
                 // add value from task2 if isNotEmpty
                 task2.body()?.results?.let {
-                    task1.body()?.results?.add(it.first())
+                    task1.body()
+                        ?.results?.add(it.first().copy(name = it.first().name?.copy(last = "${it.first().name?.last} (Append)")))
                 }
                 randomUserAdapter.setItems(task1.body()?.results ?: mutableListOf())
                 Log.i(this::class.java.simpleName, task2.body().toString())

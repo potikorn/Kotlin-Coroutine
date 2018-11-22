@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity() {
                 setItems(generateDumpMenu())
                 setOnActionListener(object : MenuListAdapter.ActionClickListener<String> {
                     override fun onClick(data: String, position: Int) {
-                        Toast.makeText(this@MainActivity, data, Toast.LENGTH_SHORT).show()
                         navigateToOther(position)
                     }
                 })
@@ -40,6 +39,7 @@ class MainActivity : AppCompatActivity() {
             1 -> startActivity(Intent(this@MainActivity, DownloadBlockingActivity::class.java))
             2 -> startActivity(Intent(this@MainActivity, AsyncAwaitActivity::class.java))
             3 -> startActivity(Intent(this@MainActivity, RetrofitActivity::class.java))
+            4 -> startActivity(Intent(this@MainActivity, WithViewModelActivity::class.java))
         }
     }
 
@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity() {
             add(getString(R.string.action_go_to_network_sample))
             add(getString(R.string.title_async_await))
             add(getString(R.string.title_retrofit_example))
+            add(getString(R.string.title_with_view_model))
         }
     }
 }

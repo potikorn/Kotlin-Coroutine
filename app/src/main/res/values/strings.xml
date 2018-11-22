@@ -4,4 +4,5 @@
     <string name="action_cancel_coroutine">Cancel Coroutine</string>
     <string name="title_async_await">Async Await</string>
     <string name="title_retrofit_example">With Retrofit</string>
+    <string name="title_with_view_model">WithViewModel</string>
 </resources>
