@@ -35,8 +35,6 @@ class RandomUserViewModel : ViewModel() {
         return baseSingleExecute { service.getRandomUser() }
     }
 
-    private fun fetchData(): Deferred<Response<RandomUserModel>> = service.getRandomUser()
-
     fun <R : Any> baseSingleExecute(block: suspend () -> Deferred<Response<R>>): MutableLiveData<Result<R>> {
         val data = MutableLiveData<Result<R>>()
         GlobalScope.launch(Main) {
