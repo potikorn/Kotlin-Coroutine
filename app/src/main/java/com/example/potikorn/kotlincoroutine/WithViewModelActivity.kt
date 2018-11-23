@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.Toast
 import com.example.potikorn.kotlincoroutine.httpmanager.Result
+import com.example.potikorn.kotlincoroutine.model.RandomUserModel
 import com.example.potikorn.kotlincoroutine.randomuser.RandomUserAdapter
 import com.example.potikorn.kotlincoroutine.viewmodel.RandomUserViewModel
 import kotlinx.android.synthetic.main.activity_retrofit.*
@@ -27,21 +28,33 @@ class WithViewModelActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(this@WithViewModelActivity)
             adapter = randomUserAdapter
         }
-        viewModel.randomUserList.observe(this, Observer { result ->
-            when (result) {
-                is Result.Loading -> {
-                    when (result.isLoading) {
-                        true -> pbLoading.visibility = View.VISIBLE
-                        false -> pbLoading.visibility = View.GONE
-                    }
+
+        btnFetchSingle.setOnClickListener {
+            viewModel.fetchRandomUserList().observe(this, Observer { result ->
+                updateUi(result)
+            })
+        }
+        btnFetchMultiple.setOnClickListener {
+            viewModel.fetchMultipleList().observe(this, Observer { result ->
+                updateUi(result)
+            })
+        }
+    }
+
+    private fun updateUi(result: Result<RandomUserModel>?) {
+        when (result) {
+            is Result.Loading -> {
+                when (result.isLoading) {
+                    true -> pbLoading.visibility = View.VISIBLE
+                    false -> pbLoading.visibility = View.GONE
                 }
-                is Result.Success -> randomUserAdapter.setItems(
-                    result.data?.results ?: mutableListOf()
-                )
-                is Result.Error -> showToast(result.exception.message ?: "")
-                is Result.Failure -> showToast("on Failure")
             }
-        })
+            is Result.Success -> randomUserAdapter.setItems(
+                result.data?.results ?: mutableListOf()
+            )
+            is Result.Error -> showToast(result.exception.message ?: "")
+            is Result.Failure -> showToast("on Failure")
+        }
     }
 
     private fun showToast(text: String) =

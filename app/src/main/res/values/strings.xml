@@ -5,4 +5,6 @@
     <string name="title_async_await">Async Await</string>
     <string name="title_retrofit_example">With Retrofit</string>
     <string name="title_with_view_model">WithViewModel</string>
+    <string name="action_fetch_multiple">Fetch Multiple</string>
+    <string name="action_fetch_single">Fetch Single</string>
 </resources>

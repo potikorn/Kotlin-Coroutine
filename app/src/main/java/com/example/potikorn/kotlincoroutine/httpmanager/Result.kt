@@ -8,7 +8,7 @@ sealed class Result<out T : Any> {
 
     class Success<out T : Any>(val data: T?) : Result<T>()
 
-    class Failure<out T : Any>(val data: ResponseBody?) : Result<T>()
+    class Failure(val data: ResponseBody?) : Result<Nothing>()
 
     class Error(val exception: Throwable) : Result<Nothing>()
 }
